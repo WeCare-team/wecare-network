@@ -51,7 +51,7 @@ type Post {
       MATCH (c:Comment)-[:ON]->(this:Post)
       RETURN c
       ORDER BY c.date DESC
-      LIMIT 25
+      LIMIT toInteger($first)
       """
     )
   commentCount: Int
@@ -84,7 +84,6 @@ type Query {
       AND ((u)-[:FOLLOWS]->(:User)-[:POSTED]->(p) OR (u)-[:POSTED]->(p))
       RETURN p
       ORDER BY p.date DESC
-      LIMIT 25
       """
     )
   Profile: User
@@ -99,8 +98,6 @@ type Query {
       statement: """
       MATCH (u:User) WHERE u.name CONTAINS $q
       RETURN u
-      SKIP $offset
-      LIMIT $limit
       """
     )
   Login(email: String, password: String): String

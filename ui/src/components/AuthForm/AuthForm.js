@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import './AuthForm.css';
+import React, { useState } from 'react'
+import './AuthForm.css'
 
-const emailRegx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const emailRegx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const InputField = ({
   label,
@@ -12,28 +12,29 @@ const InputField = ({
   needsValidation,
   onValidationError,
 }) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState('')
   return (
-    <div className="input-field">
+    <div className='input-field'>
       <label>{label}</label>
       <input
         type={type}
         placeholder={placeholder}
         onChange={e => {
-          setValue(e.target.value);
+          setValue(e.target.value)
+          console.log(e)
           if (!validation(value)) {
-            onChange(e.target.value);
+            onChange(e.target.value)
           } else {
-            onValidationError();
+            onValidationError()
           }
         }}
       />
       {needsValidation && (
-        <div className="error">{validation(value) || ''}</div>
+        <div className='error'>{validation(value) || ''}</div>
       )}
     </div>
-  );
-};
+  )
+}
 
 const AuthForm = ({
   name,
@@ -43,91 +44,94 @@ const AuthForm = ({
   values = {},
   onSubmit = () => {},
 }) => {
-  const [isSubmitted, setSubmitted] = useState(false);
+  const [isSubmitted, setSubmitted] = useState(false)
   const [isValidated, setValidated] = useState({
     name: false,
     email: false,
     password: false,
-  });
+  })
+
+  const handleClick = e => {
+    e.preventDefault()
+    console.log('clicked')
+
+    setSubmitted(true)
+    if (
+      (name || isValidated.name) &&
+      (email || isValidated.email) &&
+      (password || isValidated.password)
+    ) {
+      onSubmit()
+    }
+  }
+
   return (
-    <form
-      className="auth-form flex column a-center"
-      onSubmit={e => {
-        e.preventDefault();
-        setSubmitted(true);
-        if (
-          (!name || isValidated.name) &&
-          (!email || isValidated.email) &&
-          (!password || isValidated.password)
-        )
-          onSubmit();
-      }}
-    >
+    <form className='auth-form flex column a-center' onSubmit={handleClick}>
       {name && (
         <InputField
-          label="enter your name"
-          type="text"
-          placeholder="e. g. Tony Stark"
+          label='enter your name'
+          type='text'
+          placeholder='e. g. Tony Stark'
           needsValidation={isSubmitted}
           validation={n => {
-            if (n.trim() === '') return 'you must enter a name';
-            else return undefined;
+            if (n.trim() === '') return 'you must enter a name'
+            else return undefined
           }}
           onChange={n => {
-            onChange({ ...values, name: n });
-            setValidated(v => ({ ...v, name: true }));
+            onChange({ ...values, name: n })
+            setValidated(v => ({ ...v, name: true }))
           }}
           onValidationError={() => {
-            setValidated(v => ({ ...v, name: false }));
+            setValidated(v => ({ ...v, name: false }))
           }}
         />
       )}
       {email && (
         <InputField
-          label="your email"
-          type="text" // use my own validation
-          placeholder="youremail@whatever.com"
+          label='your email'
+          type='text'
+          placeholder='youremail@whatever.com'
           needsValidation={isSubmitted}
           validation={e => {
-            if (e.trim() === '') return 'you must enter your email';
-            else if (!emailRegx.test(e)) return 'please enter a valid email';
-            else return undefined;
+            if (!emailRegx.test(e)) return 'please enter a valid email'
+            else return undefined
           }}
           onChange={e => {
-            onChange({ ...values, email: e });
-            setValidated(v => ({ ...v, email: true }));
+            console.log(e, 'asdjahsd')
+            onChange({ ...values, email: e })
+            setValidated(v => ({ ...v, email: true }))
           }}
           onValidationError={() => {
-            setValidated(v => ({ ...v, email: false }));
+            setValidated(v => ({ ...v, email: false }))
           }}
         />
       )}
       {password && (
         <InputField
-          label="Your password"
-          type="password"
-          placeholder="******"
+          label='Your password'
+          type='password'
+          placeholder='**'
           needsValidation={isSubmitted}
           validation={p => {
-            if (p.trim() === '') return 'you must enter a password';
-            else return undefined;
+            if (p.trim() === '') return 'you must enter a password'
+            else return undefined
           }}
           onChange={p => {
-            onChange({ ...values, password: p });
-            setValidated(v => ({ ...v, password: true }));
+            onChange({ ...values, password: p })
+            setValidated(v => ({ ...v, password: true }))
           }}
           onValidationError={() => {
-            setValidated(v => ({ ...v, password: false }));
+            setValidated(v => ({ ...v, password: false }))
           }}
         />
       )}
       {(email || password || name) && (
-        <div className="submit">
-          <button>Go</button>
+        <div className='submit'>
+          <button onClick={handleClick}>Go</button>
         </div>
       )}
     </form>
-  );
-};
+  )
+}
 
-export default AuthForm;
+export default AuthForm

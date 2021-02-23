@@ -51,7 +51,7 @@ type Post {
       MATCH (c:Comment)-[:ON]->(this:Post)
       RETURN c
       ORDER BY c.date DESC
-      LIMIT $first
+      LIMIT 25
       """
     )
   commentCount: Int
@@ -84,7 +84,7 @@ type Query {
       AND ((u)-[:FOLLOWS]->(:User)-[:POSTED]->(p) OR (u)-[:POSTED]->(p))
       RETURN p
       ORDER BY p.date DESC
-      LIMIT $first
+      LIMIT 25
       """
     )
   Profile: User

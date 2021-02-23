@@ -1,0 +1,51 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Open Sans', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: #f0f0f0;
+  color: #303030;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex.a-center {
+  align-items: center;
+}
+
+.flex.j-center {
+  justify-content: center;
+}
+
+.flex.j-end {
+  justify-content: flex-end;
+}
+
+.flex.j-btwn {
+  justify-content: space-between;
+}
+
+.flex.a-stretch {
+  align-items: stretch;
+}
+
+.flex.j-evenly {
+  justify-content: space-evenly;
+}

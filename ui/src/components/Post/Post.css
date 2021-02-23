@@ -1,0 +1,95 @@
+:root {
+  --post-border: 1px solid #ddd;
+}
+
+.post {
+  margin: 8px 0;
+  min-width: 300px;
+}
+
+.post header,
+.post main {
+  background-color: #fefefe;
+  padding: 8px 12px;
+}
+
+.post header {
+  border: var(--post-border);
+  border-bottom: none;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+}
+
+.post main {
+  border-left: var(--post-border);
+  border-right: var(--post-border);
+}
+
+.post header .profile {
+  margin-right: 8px;
+}
+
+.post header a {
+  font: inherit;
+  text-decoration: inherit;
+  color: inherit;
+  font-weight: bold;
+  color: #000030;
+}
+
+.post header .date,
+.post footer span {
+  font-size: 80%;
+  color: #606060;
+}
+
+.post header .options button {
+  background: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+
+.post header .options button:focus {
+  border: none;
+  outline: none;
+}
+
+.post main p {
+  color: #505050;
+}
+
+.post footer {
+  padding: 8px;
+  background-color: #fefefe;
+  border-left: var(--post-border);
+  border-right: var(--post-border);
+}
+
+.post .likes span,
+.post .comments span {
+  margin-left: 4px;
+}
+
+.post .comments {
+  margin-left: 12px;
+}
+
+.post .comments button {
+  background: none;
+  border: none;
+}
+
+.post .latest-comments {
+  height: 8px;
+  background: #fefefe;
+  border: var(--post-border);
+  border-top: none;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  overflow: hidden;
+}
+
+.post .latest-comments[data-show='true'] {
+  height: auto;
+}

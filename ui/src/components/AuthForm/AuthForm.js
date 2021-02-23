@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import './AuthForm.css'
+import { Button } from '@material-ui/core'
 
 const emailRegx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
@@ -127,7 +128,9 @@ const AuthForm = ({
       )}
       {(email || password || name) && (
         <div className='submit'>
-          <button onClick={handleClick}>Go</button>
+          <Button color='primary' variant='contained' onClick={handleClick}>
+            {'Go'}
+          </Button>
         </div>
       )}
     </form>

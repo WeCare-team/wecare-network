@@ -1,22 +1,23 @@
-import React, { useState } from 'react';
-import './Post.css';
-import { Link } from 'react-router-dom';
-import moment from 'moment';
-import Like from '../Like/Like';
-import { useLike } from '../../hooks/useLike';
-import ProfilePic from '../ProfilePic/ProfilePic';
-import PostGallery from '../PostGallery/PostGallery';
-import { useDeletePost } from '../../hooks/useDeletePost';
-import deleteIcon from '../../assets/delete.svg';
-import commentIcon from '../../assets/comment.svg';
-import { motion } from 'framer-motion';
-import CommentList from '../CommentList/CommentList';
-import CreateComment from '../CreateComment/CreateComment';
-import { useComment } from '../../hooks/useComment';
+import React, { useState } from 'react'
+import './Post.css'
+import { Link } from 'react-router-dom'
+import moment from 'moment'
+import Like from '../Like/Like'
+import { useLike } from '../../hooks/useLike'
+import ProfilePic from '../ProfilePic/ProfilePic'
+import PostGallery from '../PostGallery/PostGallery'
+import { useDeletePost } from '../../hooks/useDeletePost'
+import deleteIcon from '../../assets/delete.svg'
+import CommentOutlinedIcon from '@material-ui/icons/CommentOutlined'
+import { motion } from 'framer-motion'
+import CommentList from '../CommentList/CommentList'
+import CreateComment from '../CreateComment/CreateComment'
+import { useComment } from '../../hooks/useComment'
+import { Grid, IconButton, Paper, Box } from '@material-ui/core'
 
 const Author = ({ author }) => (
   <Link to={`/u/${author._id}`}>{author.name}</Link>
-);
+)
 
 const Post = ({
   _id,
@@ -30,28 +31,28 @@ const Post = ({
   gallery,
   refetchPosts = () => {},
 }) => {
-  const { likes, isLiked, toggle } = useLike(initialIsLiked, initialLikes, _id);
-  const { comment } = useComment(_id);
-  const { allowDelete, remove } = useDeletePost(refetchPosts, _id, author._id);
-  const [showLatestComments, toggleLatestComments] = useState(false);
+  const { likes, isLiked, toggle } = useLike(initialIsLiked, initialLikes, _id)
+  const { comment } = useComment(_id)
+  const { allowDelete, remove } = useDeletePost(refetchPosts, _id, author._id)
+  const [showLatestComments, toggleLatestComments] = useState(false)
   return (
-    <div className="post flex column a-stretch">
-      <header className="flex a-stretch j-btwn">
-        <div className="flex a-stretch">
-          <div className="profile">
+    <Box component={Paper} className='post flex column a-stretch' p={2}>
+      <header className='flex a-stretch j-btwn'>
+        <div className='flex a-stretch'>
+          <div className='profile'>
             <ProfilePic url={author.avatarUrl} />
           </div>
           <div>
             <Author author={author} />
-            <div className="date">
+            <div className='date'>
               {moment(new Date(date.formatted)).fromNow()}
             </div>
           </div>
         </div>
-        <div className="options">
+        <div className='options'>
           {allowDelete && (
             <button onClick={remove}>
-              <img src={deleteIcon} alt="" />
+              <img src={deleteIcon} alt='' />
             </button>
           )}
         </div>
@@ -60,20 +61,28 @@ const Post = ({
         <p>{content}</p>
         {gallery.length > 0 && <PostGallery gallery={gallery} />}
       </main>
-      <footer className="flex a-center">
-        <div className="likes flex">
-          <Like isLiked={isLiked} toggle={toggle} />
-          <span>{likes}</span>
+      <footer className='flex a-center'>
+        <div className='flex'>
+          <Grid container alignItems='center' spacing={1}>
+            <Grid item>
+              <Like isLiked={isLiked} toggle={toggle} />
+            </Grid>
+            <Grid item>{likes}</Grid>
+          </Grid>
         </div>
-        <div className="comments flex">
-          <button onClick={() => toggleLatestComments(b => !b)}>
-            <img src={commentIcon} alt="" />
-          </button>
-          <span>{commentCount}</span>
+        <div className='comments flex'>
+          <Grid container alignItems='center' spacing={1}>
+            <Grid item>
+              <IconButton onClick={() => toggleLatestComments(b => !b)}>
+                <CommentOutlinedIcon style={{ color: '#648DAE' }} />
+              </IconButton>
+            </Grid>
+            <Grid item>{commentCount}</Grid>
+          </Grid>
         </div>
       </footer>
       <motion.div
-        className="latest-comments"
+        className='latest-comments'
         data-show={showLatestComments}
         layout
         transition={{
@@ -85,8 +94,8 @@ const Post = ({
         <CommentList comments={Comments} postAuthorId={author._id} />
         <CreateComment comment={comment} />
       </motion.div>
-    </div>
-  );
-};
+    </Box>
+  )
+}
 
-export default Post;
+export default Post

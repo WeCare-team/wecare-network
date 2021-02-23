@@ -40,13 +40,3 @@
   border-bottom: 1px solid #666;
 }
 
-.auth-form .submit button {
-  padding: 6px 12px;
-  border: 1px solid #cdcdcd;
-  background: #666;
-  border-radius: 16px;
-  font: inherit;
-  font-size: 80%;
-  color: #efefef;
-  cursor: pointer;
-}

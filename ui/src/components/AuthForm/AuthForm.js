@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import './AuthForm.css'
 import { Button } from '@material-ui/core'
-
 const emailRegx = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
 
 const InputField = ({
@@ -52,16 +51,12 @@ const AuthForm = ({
     password: false,
   })
 
-  const handleClick = e => {
+  const handleClick = async e => {
     e.preventDefault()
     console.log('clicked')
 
     setSubmitted(true)
-    if (
-      (name || isValidated.name) &&
-      (email || isValidated.email) &&
-      (password || isValidated.password)
-    ) {
+    if ((email || isValidated.email) && (password || isValidated.password)) {
       onSubmit()
     }
   }

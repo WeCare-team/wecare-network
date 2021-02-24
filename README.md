@@ -1,4 +1,4 @@
-# Social Network
+# WeCare
 
 A GraphQL, React.js, Apollo, Neo4j stack app with node.
 
